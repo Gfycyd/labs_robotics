@@ -18,7 +18,7 @@ def q():
     # q = [370, 136, 312, 720, 250, 720]
     # q = [130, 115, 125, 180, 180, 260]  # max speed
 
-    return [0.4, 0.4, 0.3, 0.5, 0.8, 0.9]
+    return [0.4, 0.4, 0.3, 1, 0.8, 0.9]
 class Formulas:
 
     def T_z(self, l):
@@ -97,8 +97,8 @@ def IK(T):
     print(q3)
 
 
-    Rw = np.linalg.pinv(np.dot(f.R_x(qr[2]), np.dot(f.R_x(qr[1]) , f.R_z(qr[0]) )) )
-    Rw = np.dot(T, Rw)
+    Rw = np.linalg.inv(np.dot(f.R_z(qr[0]), np.dot(f.R_y(qr[1]) , f.R_y(qr[2]) )) )
+    Rw = np.dot(Rw, T)
     if Rw[0][0] != 1:
         q4 = atan2(Rw[1][0], -Rw[2][0])
         print("Our Q4:")
@@ -113,7 +113,6 @@ def IK(T):
         print("Our Q5:")
         print(q5)
 
-    return
 
 
 
