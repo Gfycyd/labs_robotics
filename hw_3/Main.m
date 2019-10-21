@@ -52,12 +52,12 @@ J6 = simplify([cross(Y5,O6-O5);Y5]);
 T0 = T;
 T0 = inv(T0(1:3,1:3));
 T0=[T0,zeros(3,1);0 0 0 1];
-Td =  Rzd(q1)*Tz(d1)*Ty(d2)* Rx(q2)*Tz(d3)* Rx(q3)*Tz(d4)*Ty(d5)* Ry(q4)* Rx(q5)* Ry(q6)*Ty(d6)*Ti; J1 = simplify(Jcol(Td));
-Td =  Rz(q1)*Tz(d1)*Ty(d2)*Rxd(q2)*Tz(d3)* Rx(q3)*Tz(d4)*Ty(d5)* Ry(q4)* Rx(q5)* Ry(q6)*Ty(d6)*Ti; J2 = simplify(Jcol(Td));
-Td =  Rz(q1)*Tz(d1)*Ty(d2)* Rx(q2)*Tz(d3)*Rxd(q3)*Tz(d4)*Ty(d5)* Ry(q4)* Rx(q5)* Ry(q6)*Ty(d6)*Ti; J3 = simplify(Jcol(Td));
-Td =  Rz(q1)*Tz(d1)*Ty(d2)* Rx(q2)*Tz(d3)* Rx(q3)*Tz(d4)*Ty(d5)*Ryd(q4)* Rx(q5)* Ry(q6)*Ty(d6)*Ti; J4 = simplify(Jcol(Td));
-Td =  Rz(q1)*Tz(d1)*Ty(d2)* Rx(q2)*Tz(d3)* Rx(q3)*Tz(d4)*Ty(d5)* Ry(q4)*Rxd(q5)* Ry(q6)*Ty(d6)*Ti; J5 = simplify(Jcol(Td));
-Td =  Rz(q1)*Tz(d1)*Ty(d2)* Rx(q2)*Tz(d3)* Rx(q3)*Tz(d4)*Ty(d5)* Ry(q4)* Rx(q5)*Ryd(q6)*Ty(d6)*Ti; J6 = simplify(Jcol(Td));
+Td =  Rzd(q1)*Tz(d1)*Ty(d2)* Rx(q2)*Tz(d3)* Rx(q3)*Tz(d4)*Ty(d5)* Ry(q4)* Rx(q5)* Ry(q6)*Ty(d6)*T0; J1 = simplify(Jcol(Td));
+Td =  Rz(q1)*Tz(d1)*Ty(d2)*Rxd(q2)*Tz(d3)* Rx(q3)*Tz(d4)*Ty(d5)* Ry(q4)* Rx(q5)* Ry(q6)*Ty(d6)*T0; J2 = simplify(Jcol(Td));
+Td =  Rz(q1)*Tz(d1)*Ty(d2)* Rx(q2)*Tz(d3)*Rxd(q3)*Tz(d4)*Ty(d5)* Ry(q4)* Rx(q5)* Ry(q6)*Ty(d6)*T0; J3 = simplify(Jcol(Td));
+Td =  Rz(q1)*Tz(d1)*Ty(d2)* Rx(q2)*Tz(d3)* Rx(q3)*Tz(d4)*Ty(d5)*Ryd(q4)* Rx(q5)* Ry(q6)*Ty(d6)*T0; J4 = simplify(Jcol(Td));
+Td =  Rz(q1)*Tz(d1)*Ty(d2)* Rx(q2)*Tz(d3)* Rx(q3)*Tz(d4)*Ty(d5)* Ry(q4)*Rxd(q5)* Ry(q6)*Ty(d6)*T0; J5 = simplify(Jcol(Td));
+Td =  Rz(q1)*Tz(d1)*Ty(d2)* Rx(q2)*Tz(d3)* Rx(q3)*Tz(d4)*Ty(d5)* Ry(q4)* Rx(q5)*Ryd(q6)*Ty(d6)*T0; J6 = simplify(Jcol(Td));
 
 
 %% Numerical Print Results to Visual See
