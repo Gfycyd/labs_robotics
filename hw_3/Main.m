@@ -82,14 +82,45 @@ disp(dif);
 % q4 = 0;
 % q5 = 0;
 % q6 = 0;
-% d1 = 0;
-% d2 = 312;
-% d3 = 1075;
-% d4 = 225;
-% d5 = 1280;
-% d6 = 215;
+d1 = 0;
+d2 = 312;
+d3 = 1075;
+d4 = 225;
+d5 = 1280;
+d6 = 215;
 
 %% Kinematic Singularity analysis
+%% Kinematic Singularity analysis
+J = Jacobian_num;
+J11 = [cross(Z0,O6-O0),cross(X1,O6-O1), cross(X2,O6-O2)];
+J21 = [O0, O1, O2];
+J12 = [cross(Y3,O6-O3),cross(X4,O6-O4), cross(Y5,O6-O5)];
+J22 = [O3, O4, O5];
+
+
+
+
 %1 case
-%2 case
+
+q5 = 0;
+%q3 = 0;
+disp(det(eval(J)));
+
+
+
+disp(det(eval(J12)));
+
 %3 case
+
+%q4 = 1;
+%q6 = -1;
+%disp(det(eval(J)));
+%disp(det(eval(J22)));
+
+
+%2 case
+q1 = 0;
+q2 = pi/2;
+q3 = -q2/d2*d3;
+disp(det(eval(J11)));
+%disp(det(eval(J)));
