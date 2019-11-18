@@ -11,9 +11,9 @@ b) joint_postion like: '0.0 0.0 0.0 0.0 0.0 0.0'
 
 
 ## Starting PTP-LIN-PTP-LIN 
-1) after first 5th steps in terminal: roslaunch hw5 trajectory.launch 
+1) after first 4th steps in terminal: roslaunch hw5 trajectory.launch 
 
 
 
 ## Starting PTP-LIN-PTP-LIN with jucntions
-1) after first 5th steps in terminal: roslaunch hw5 junction.launch 
+1) after first 4th steps in terminal: roslaunch hw5 junction.launch 
