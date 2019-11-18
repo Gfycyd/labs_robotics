@@ -1,0 +1,6 @@
+<launch> 
+   <include file="$(find hw5)/launch/display.launch"> </include> 
+   <node name="plot" pkg="hw5" type="junction.py" output="screen"/>
+
+	
+</launch>

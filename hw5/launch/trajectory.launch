@@ -1,0 +1,8 @@
+<launch> 
+   <include file="$(find hw5)/launch/display.launch"> </include> 
+  <!--  <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot" args="joint_pos_1 joint_pos_2 joint_pos_3 joint_pos_4 joint_pos_5 joint_pos_6"/> !-->
+  <!--  <node name="rqt_plot2" pkg="rqt_plot" type="rqt_plot" args="joint_vel_1 joint_vel_2 joint_vel_3 joint_vel_4 joint_vel_5 joint_vel_6"/> !-->
+   <node name="trajectory_planning" pkg="hw5" type="plan.py" output="screen"/>
+
+	
+</launch>
