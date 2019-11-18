@@ -33,145 +33,6 @@ from time import time, sleep
 from math import ceil
 
 
-def lin(Q, des):
-    r0 = ((Tbase * FK(Q)))[0:3, 3]
-    r0 = transpose(r0)
-    r = r0
-
-    delta_q = (np.asarray(des - r0))[0]
-
-    t = np.zeros(3, dtype=np.float)
-    T = np.zeros(3, dtype=np.float)
-    Tf = np.zeros(3, dtype=np.float)
-    Vmax = np.copy(V_cart_max)
-    amax = np.copy(a_cart_max)
-
-    for i in range(len(t)):
-        if np.sqrt(amax[i] * abs(Q[i])) > Vmax[i]:
-            t[i] = Vmax[i] / amax[i]
-            T[i] = abs(Q[i]) / Vmax[i]
-            Tf[i] = t[i] * 2 + T[i]
-        else:
-            Vmax[i] = np.sqrt(amax[i] * abs(Q[i]))
-            t[i] = np.sqrt(abs(Q[i]) / amax[i])
-            T[i] = t[i]
-            Tf[i] = 2 * t[i]
-
-    tmax = ceil(max(t) / t_discr) * t_discr
-    Tmax = ceil(max(T) / t_discr) * t_discr
-
-    dir = abs(delta_q) / delta_q
-    vel_profile = [t[0], T[0], Tf[0], Vmax, amax]
-
-    while prev_time - start_time < vel_profile[2]:
-        freq = 0.
-        steps = 0
-
-        cur_time = time()
-        dt = cur_time - prev_time
-        freq += dt
-        steps += 1
-
-        QRet = np.zeros(3, dtype=np.float)
-        [t, T, Tf, Vmax, amax, trapezia] = traj_params
-        for i in range(len(QRet)):
-            if trapezia[i]:
-                if time <= t:
-                    QRet[i] = amax[i] * time
-                elif time > t and time <= T:
-                    QRet[i] = Vmax[i]
-                elif time > T and time <= Tf:
-                    QRet[i] = Vmax[i] - amax[i] * (time - T)
-                else:
-                    QRet[i] = 0
-            else:
-                if time <= t:
-                    QRet[i] = amax[i] * time
-                elif time > t and time <= Tf:
-                    QRet[i] = Vmax[i] - amax[i] * (time - T)
-                else:
-                    QRet[i] = 0
-
-        vel = np.assaray(QRet)
-        while time() - cur_time < t_discr:
-            sleep(0.00001)
-        prev_time = cur_time
-
-
-def ptp(Q, des):
-    delta_q = (np.asarray(des - Q))
-    t = np.zeros(6, dtype=np.float)
-    T = np.zeros(6, dtype=np.float)
-    Tf = np.zeros(6, dtype=np.float)
-    Vmax = np.copy(V_cart_max)
-    amax = np.copy(a_cart_max)
-
-    for i in range(len(t)):
-        if np.sqrt(amax[i] * abs(Q[i])) > Vmax[i]:
-            t[i] = Vmax[i] / amax[i]
-            T[i] = abs(Q[i]) / Vmax[i]
-            Tf[i] = t[i] * 2 + T[i]
-        else:
-            Vmax[i] = np.sqrt(amax[i] * abs(Q[i]))
-            t[i] = np.sqrt(abs(Q[i]) / amax[i])
-            T[i] = t[i]
-            Tf[i] = 2 * t[i]
-
-    tmax = ceil(max(t) / t_discr) * t_discr
-    Tmax = ceil(max(T) / t_discr) * t_discr
-    trapezia = []
-    for i in range(len(t)):
-        Vmax[i] = abs(Q[i]) / Tmax
-        amax[i] = Vmax[i] / tmax
-        if np.sqrt(amax[i] * abs(Q[i])) > Vmax[i]:
-            t[i] = Vmax[i] / amax[i]
-            T[i] = abs(Q[i]) / Vmax[i]
-            Tf[i] = T[i] + t[i]
-            trapezia.append(True)
-        else:
-            Vmax[i] = np.sqrt(amax[i] * abs(Q[i]))
-            t[i] = np.sqrt(abs(Q[i]) / amax[i])
-            T[i] = t[i]
-            Tf[i] = 2 * t[i]
-            trapezia.append(False)
-    dir = abs(delta_q) / delta_q
-
-    vel_profile = [t[0], T[0], Tf[0], Vmax, amax, trapezia]
-
-    while prev_time - start_time < vel_profile[2]:
-        freq = 0.
-        steps = 0
-
-        cur_time = time()
-        dt = cur_time - prev_time
-        freq += dt
-        steps +=
-        QRet = np.zeros(6, dtype=np.float)
-
-        [t, T, Tf, Vmax, amax, trapezia] = traj_params
-        for i in range(len(QRet)):
-            if trapezia[i]:
-                if time <= t:
-                    QRet[i] = amax[i] * time
-                elif time > t and time <= T:
-                    QRet[i] = Vmax[i]
-                elif time > T and time <= Tf:
-                    QRet[i] = Vmax[i] - amax[i] * (time - T)
-                else:
-                    QRet[i] = 0
-            else:
-                if time <= t:
-                    QRet[i] = amax[i] * time
-                elif time > t and time <= Tf:
-                    QRet[i] = Vmax[i] - amax[i] * (time - T)
-                else:
-                    QRet[i] = 0
-        vel = np.assaray(QRet)
-
-        while time() - cur_time < t_discr:
-            sleep(0.00001)
-        prev_time = cur_time
-
 
 def talker():
     rospy.init_node('trajectory')
@@ -196,8 +57,9 @@ def talker():
         prev_time = time(
         print("start move")
         joints_control.velocity = np.zeros(6)
-
-    exit(0)
+        if i == 'LIN': lin(q,q_des[i])
+        else: ptp(q,q_des[i])
+        exit(0)
 
 
 if __name__ == '__main__':
