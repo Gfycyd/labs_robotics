@@ -1,0 +1,6 @@
+<launch>
+
+  <include file="$(find hw_5)/launch/display.launch"> </include> 
+  <node name="joint_state_publisher" pkg="hw_5" type="main.py" output="screen"/>
+
+</launch>
