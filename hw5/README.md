@@ -16,4 +16,4 @@ b) joint_postion like: '0.0 0.0 0.0 0.0 0.0 0.0'
 
 
 ## Starting PTP-LIN-PTP-LIN with jucntions
-1) after first 4th steps in terminal: roslaunch hw5 trajectory.launch + uncomment comments in first function in plan.py
+1) after first 4th steps in terminal: roslaunch hw5 trajectory.launch + uncomment comments
